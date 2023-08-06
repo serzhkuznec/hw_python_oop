@@ -2,11 +2,11 @@ class InfoMessage:
     """Информационное сообщение о тренировке."""
 
     def __init__(self,
-                 training_type,
-                 duration,
-                 distance,
-                 speed,
-                 calories
+                 training_type: str,
+                 duration: float,
+                 distance: float,
+                 speed: float,
+                 calories: float
                  ) -> None:
         self.training_type = training_type
         self.duration = duration
@@ -31,9 +31,9 @@ class Training:
     H_IN_MIN = 60  # Константа для перевода часов в минуты
 
     def __init__(self,
-                 action,
-                 duration,
-                 weight,
+                 action: int,
+                 duration: float,
+                 weight: float,
                  ) -> None:
         self.action = action
         self.duration = duration
@@ -79,10 +79,10 @@ class SportsWalking(Training):
     SM_IN_METERS = 100  # Константа для перевода см в м
 
     def __init__(self,
-                 action,
-                 duration,
-                 weight,
-                 height
+                 action: int,
+                 duration: float,
+                 weight: float,
+                 height: float
                  ) -> None:
         super().__init__(action, duration, weight)
         self.height = height
@@ -104,11 +104,11 @@ class Swimming(Training):
     DOUBLE_MEAN_SPEED = 2  # Коэффициент для удвоения скорости
 
     def __init__(self,
-                 action,
-                 duration,
-                 weight,
-                 length_pool,
-                 count_pool
+                 action: int,
+                 duration: float,
+                 weight: float,
+                 length_pool: float,
+                 count_pool: float
                  ) -> None:
         super().__init__(action, duration, weight)
         self.lenght_pool = length_pool   # в метрах
@@ -124,7 +124,7 @@ class Swimming(Training):
                 * self.DOUBLE_MEAN_SPEED * self.weight * self.duration)
 
 
-def read_package(workout_type, data) -> Training:
+def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
     dict_package = {'SWM': Swimming,
                     'RUN': Running,
