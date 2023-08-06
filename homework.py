@@ -1,23 +1,3 @@
-from dataclasses import dataclass
-
-
-@dataclass
-class InventoryItem:
-    """Class for keeping track of an item in inventory."""
-    training_type: str
-    duration: str
-    distance: float
-    speed: float
-    calories: float
-    action: int
-    weight: float
-    height: float
-    length_pool: float
-    count_pool: str
-    workout_type: str
-    data: list
-
-
 class InfoMessage:
     """Информационное сообщение о тренировке."""
 
@@ -36,7 +16,7 @@ class InfoMessage:
 
     def get_message(self) -> str:
         """Выводит сообщение в соотвествии с типом тренировки"""
-        return (f'Тип тренировки: {type(self.training_type).__name__}; '
+        return (f'Тип тренировки: {self.training_type}; '
                 f'Длительность: {self.duration:.3f} ч.; '
                 f'Дистанция: {self.distance:.3f} км; '
                 f'Ср. скорость: {self.speed:.3f} км/ч; '
@@ -73,7 +53,7 @@ class Training:
 
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
-        return InfoMessage(self, self.duration,
+        return InfoMessage(self.__class__.__name__, self.duration,
                            self.get_distance(), self.get_mean_speed(),
                            self.get_spent_calories())
 
