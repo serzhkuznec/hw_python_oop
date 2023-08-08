@@ -26,9 +26,9 @@ class InfoMessage:
 class Training:
     """Базовый класс тренировки."""
 
-    LEN_STEP = 0.65  # Длинна шага в метрах
-    M_IN_KM = 1000  # Константа для перевода метров в км
-    H_IN_MIN = 60  # Константа для перевода часов в минуты
+    LEN_STEP: float = 0.65  # Длинна шага в метрах
+    M_IN_KM: int = 1000  # Константа для перевода метров в км
+    H_IN_MIN: int = 60  # Константа для перевода часов в минуты
 
     def __init__(self,
                  action: int,
@@ -49,7 +49,7 @@ class Training:
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
-        raise NotImplementedError('<Метод реализуется в дочерних классах>')
+        raise NotImplementedError('Метод реализуется в дочерних классах')
 
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
@@ -60,10 +60,12 @@ class Training:
 
 class Running(Training):
     """Тренировка: бег."""
+
     CALORIES_MEAN_SPEED_MULTIPLIER = 18  # Множитель скорости
     CALORIES_MEAN_SPEED_SHIFT = 1.79  # Константа для учета сдвига скорости
 
     def get_spent_calories(self) -> float:
+        """Получить количество затраченных калорий."""
         speed = self.get_mean_speed()
         duration_m = self.duration * self.H_IN_MIN
         return ((self.CALORIES_MEAN_SPEED_MULTIPLIER
@@ -88,6 +90,7 @@ class SportsWalking(Training):
         self.height = height
 
     def get_spent_calories(self) -> float:
+        """Получить количество затраченных калорий."""
         speed = self.get_mean_speed()
         speed_m_in_sec = speed * self.SPEED_IN_M_SEC
         height_m = self.height / self.SM_IN_METERS
@@ -99,9 +102,9 @@ class SportsWalking(Training):
 
 class Swimming(Training):
     """Тренировка: плавание."""
-    LEN_STEP = 1.38  # Длинна шага в метрах
-    CALORIES_MEAN_SPEED_SHIFT = 1.1  # Константа для учета сдвига скорости
-    DOUBLE_MEAN_SPEED = 2  # Коэффициент для удвоения скорости
+    LEN_STEP: float = 1.38  # Длинна шага в метрах
+    CALORIES_MEAN_SPEED_SHIFT: float = 1.1  # Коэффициент учета сдвига скорости
+    DOUBLE_MEAN_SPEED: int = 2  # Коэффициент для удвоения скорости
 
     def __init__(self,
                  action: int,
@@ -120,18 +123,19 @@ class Swimming(Training):
                 / self.M_IN_KM / self.duration)
 
     def get_spent_calories(self) -> float:
+        """Получить количество затраченных калорий."""
         return ((self.get_mean_speed() + self.CALORIES_MEAN_SPEED_SHIFT)
                 * self.DOUBLE_MEAN_SPEED * self.weight * self.duration)
 
 
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
-    dict_package = {'SWM': Swimming,
-                    'RUN': Running,
-                    'WLK': SportsWalking
-                    }
-    if workout_type in dict_package:
-        return dict_package[workout_type](*data)
+    trainings = {'SWM': Swimming,
+                 'RUN': Running,
+                 'WLK': SportsWalking}
+
+    if workout_type in trainings:
+        return trainings[workout_type](*data)
 
     raise ValueError('Тренировка не найдена.')
 
