@@ -61,8 +61,8 @@ class Training:
 class Running(Training):
     """Тренировка: бег."""
 
-    CALORIES_MEAN_SPEED_MULTIPLIER = 18  # Множитель скорости
-    CALORIES_MEAN_SPEED_SHIFT = 1.79  # Константа для учета сдвига скорости
+    CALORIES_MEAN_SPEED_MULTIPLIER: int = 18  # Множитель скорости
+    CALORIES_MEAN_SPEED_SHIFT: float = 1.79  # Константа для учета сдвига скорости
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
@@ -75,10 +75,11 @@ class Running(Training):
 
 class SportsWalking(Training):
     """Тренировка: спортивная ходьба."""
-    CALORIES_MEAN_SPEED_MULTIPLIER = 0.035  # Коэффициент расчета каллорий 1
-    SQRT_SPEED_AND_HEIGHT = 0.029  # Коэффициент расчета каллорий 2
-    SPEED_IN_M_SEC = 0.278  # Константа для перевода скорости в м/с
-    SM_IN_METERS = 100  # Константа для перевода см в м
+    
+    CALORIES_MEAN_SPEED_MULTIPLIER: float = 0.035  # Коэффициент расчета каллорий 1
+    SQRT_SPEED_AND_HEIGHT: float = 0.029  # Коэффициент расчета каллорий 2
+    SPEED_IN_M_SEC: float = 0.278  # Константа для перевода скорости в м/с
+    SM_IN_METERS: float = 100  # Константа для перевода см в м
 
     def __init__(self,
                  action: int,
@@ -102,6 +103,7 @@ class SportsWalking(Training):
 
 class Swimming(Training):
     """Тренировка: плавание."""
+    
     LEN_STEP: float = 1.38  # Длинна шага в метрах
     CALORIES_MEAN_SPEED_SHIFT: float = 1.1  # Коэффициент учета сдвига скорости
     DOUBLE_MEAN_SPEED: int = 2  # Коэффициент для удвоения скорости
@@ -130,7 +132,7 @@ class Swimming(Training):
 
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
-    trainings = {'SWM': Swimming,
+    trainings: Dict[str,str] = {'SWM': Swimming,
                  'RUN': Running,
                  'WLK': SportsWalking}
 
