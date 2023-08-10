@@ -61,7 +61,7 @@ class Training:
 class Running(Training):
     """Тренировка: бег."""
 
-    CALORIES_MEAN_SPEED_MULTIPLIER: int = 18  # Множитель скорости
+    CALORIES_MEAN_SPEED_MULTIPLIER: float = 18  # Множитель скорости
     CALORIES_MEAN_SPEED_SHIFT: float = 1.79  # Константа учета сдвига скорости
 
     def get_spent_calories(self) -> float:
@@ -132,7 +132,7 @@ class Swimming(Training):
 
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
-    trainings: dict[str, str] = {'SWM': Swimming,
+    trainings: dict[str, training_class: type] = {'SWM': Swimming,
                                  'RUN': Running,
                                  'WLK': SportsWalking}
 
